@@ -1,13 +1,13 @@
 {
-  "name": "@philihp/advent-of-code-2023",
+  "name": "@philihp/advent-of-code",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "main": "inputs.js",
   "scripts": {
-    "run": "node src/2025/day1/part2",
-    "test": "node --test",
-    "watch": "node --test --watch"
+    "run": "node src/2025/day02/part1",
+    "test": "node --test src/2025/day02/part1.test.js",
+    "watch": "node --test --watch src/2025/day02/part1.test.js"
   },
   "watch": {
     "test": {
