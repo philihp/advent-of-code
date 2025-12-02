@@ -5,13 +5,15 @@
   "type": "module",
   "main": "inputs.js",
   "scripts": {
-    "test": "node src/2025/day1/part1.js",
-    "watch": "npm-watch"
+    "run": "node src/2025/day1/part2",
+    "test": "node --test",
+    "watch": "node --test --watch"
   },
   "watch": {
     "test": {
       "patterns": [
-        "*.js"
+        "*.js",
+        "*.txt"
       ],
       "clearBuffer": true,
       "inherit": true
@@ -20,9 +22,7 @@
   "author": "Philihp Busby <philihp@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "npm-watch": "0.11.0",
     "prettier": "3.1.0",
-    "ramda": "0.29.1",
-    "ts-pattern": "^5.9.0"
+    "ramda": "0.29.1"
   }
 }
