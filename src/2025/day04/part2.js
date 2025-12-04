@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { join, count, equals, concat, addIndex, pipe, map, split, slice, max, flatten, sum, range, filter } from 'ramda'
+import { reduce, reduced, count, equals, addIndex, pipe, map, split, slice, flatten, sum, range } from 'ramda'
 
 const data = fs.readFileSync('src/2025/day04/input2.txt', 'utf8')
 
@@ -59,21 +59,22 @@ const clearAccessible = imap((row, rIdx, floor) => {
 
 const countRemoved = (floor) => count(equals('x'), flatten(floor))
 
-let n = 0
-let f = f0
+const { accum: removed } = reduce(
+  ({ floor, accum }, n) => {
+    // console.log('===========================', n)
+    // map((row) => {
+    //   console.log(join(' ')(row))
+    // }, floor)
+    const newFloor = clearAccessible(floor)
+    const removed = countRemoved(newFloor)
+    if (removed === 0) return reduced({ floor, accum })
+    return {
+      accum: accum + removed,
+      floor: newFloor,
+    }
+  },
+  { floor: f0, accum: 0 },
+  range(0, 150)
+)
 
-let accum = 0
-while (n++ < 150) {
-  console.log({ n })
-  const newF = clearAccessible(f)
-  const removed = countRemoved(newF)
-  if (removed === 0) break
-  accum += countRemoved(newF)
-  console.log({ removed })
-  f = newF
-  // map((row) => {
-  //   console.log(join(' ')(row))
-  // }, f)
-}
-
-console.log({ accum })
+console.log({ removed })
