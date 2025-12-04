@@ -5,9 +5,9 @@
   "type": "module",
   "main": "inputs.js",
   "scripts": {
-    "run": "node src/2025/day02/part2",
-    "test": "node --test src/2025/day02/part2.test.js",
-    "watch": "node --test --watch src/2025/day02/part2.test.js"
+    "run": "node src/2025/day03/part2",
+    "test": "node --test src/2025/day03/part2.test.js",
+    "watch": "node --test --watch src/2025/day03/part2.test.js"
   },
   "watch": {
     "test": {
