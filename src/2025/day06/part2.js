@@ -1,11 +1,27 @@
 import fs from 'fs'
-import { length, trim, head, join, reverse, transpose, tail, add, pipe, map, split, slice, sum, product } from 'ramda'
+import {
+  compose,
+  length,
+  trim,
+  head,
+  join,
+  reverse,
+  transpose,
+  tail,
+  add,
+  pipe,
+  map,
+  split,
+  slice,
+  sum,
+  product,
+} from 'ramda'
 
 const readData = (file) => fs.readFileSync(file, 'utf8')
 
 const atoi = (s) => Number.parseInt(s, 10)
 
-const last = (arr) => head(reverse(arr))
+const last = compose(head, reverse)
 
 const removeSpaceFromAllButLast = (arr) => {
   const [lastElem, ...revRem] = reverse(arr)
