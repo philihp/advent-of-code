@@ -1,4 +1,4 @@
-import {} from './part2.js'
+import {} from './part1.js'
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 
