@@ -31,6 +31,7 @@ import {
 
 const readData = (file) => fs.readFileSync(file, 'utf8')
 const last = compose(head, reverse)
+const toBinaryString = (length) => (s) => s.toString(2).padStart(length, '0')
 const id = (n) => JSON.stringify(n)
 
 const parseJoltage = pipe(
@@ -61,47 +62,23 @@ const tokensToSetup = (arr) => {
   ]
 }
 
-export const applyButton = (goal, button) => {
-  const str = split('', button.toString(2).padStart(goal.length, '0'))
-  console.log({ goal, button: str })
-  const ret = zipWith(
-    (bit, n) => {
-      return bit === '1' ? n - 1 : n
-    },
-    str,
+export const applyButton = (goal, button) =>
+  zipWith(
+    (bit, n) => (bit === '1' ? n - 1 : n),
+    pipe(
+      //
+      toBinaryString(goal.length),
+      split('')
+    )(button),
     goal
   )
-  return ret
-}
 
-export const fewestSteps = ([distance, state, buttons], otherStates = []) => {
-  until(
-    (state) => isEmpty(state.queue),
-    (state) => {
-      const [goal, ...rest] = state.queue
-      if (state.visited[id(goal)]) return assoc('queue', rest, state)
-
-      const neighbors = map((button) => {
-        return applyButton(goal, button)
-      }, buttons)
-
-      return {
-        queue: [...rest, ...neighbors],
-        visited: assoc(id(goal), true, state.visited),
-      }
-    }
-  )
-
-  return
-}
-
-// pipe(
-//   //
-//   readData,
-//   split('\n'),
-//   map(split(' ')),
-//   map(tokensToSetup),
-//   map(fewestSteps),
-//   // sum,
-//   console.log
-// )('src/2025/day10/input1.txt')
+pipe(
+  //
+  readData,
+  split('\n'),
+  map(split(' ')),
+  map(tokensToSetup),
+  // sum,
+  console.log
+)('src/2025/day10/input1.txt')

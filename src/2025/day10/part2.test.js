@@ -1,4 +1,4 @@
-import { applyButton, fewestSteps } from './part2.js'
+import { applyButton } from './part2.js'
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
 
@@ -15,44 +15,40 @@ describe('applyButton', () => {
     const actual = applyButton(goal, button)
     assert.deepEqual(actual, [3, 2, 2, 3])
   })
-})
-
-describe('fewestSteps', () => {
-  // it('does not try to press buttons if at zero state', () => {
-  //   const goal = [0, 0, 0, 0]
-  //   const buttons = [1, 2, 3]
-  //   const actual = fewestSteps([goal, buttons], 5)
-  //   assert.equal(actual, 5)
-  // })
-  // it('bails with Infinity if goal exceeded', () => {
-  //   const goal = [0, 0, -3, 0]
-  //   const buttons = [1, 2, 3]
-  //   const actual = fewestSteps([goal, buttons], 5)
-  //   assert.equal(actual, Infinity)
-  // })
-  // it('can press one button', () => {
-  //   const goal = [0, 0, 1, 1]
-  //   const buttons = [1, 2, 3]
-  //   const actual = fewestSteps([goal, buttons])
-  //   assert.equal(actual, 1)
-  // })
-  // it('can press multiple buttons', () => {
-  //   const goal = [0, 0, 1, 3]
-  //   const buttons = [1, 2, 3]
-  //   const actual = fewestSteps([goal, buttons])
-  //   assert.equal(actual, 3)
-  // })
-  // it('does not fail on an impossible task', () => {
-  //   const goal = [0, 1, 1, 3]
-  //   const buttons = [1, 2, 3]
-  //   const actual = fewestSteps([goal, buttons])
-  //   assert.equal(actual, Infinity)
-  // })
-
-  it('can do the sample task', () => {
-    const goal = [3, 5, 4, 7]
-    const buttons = [1, 5, 2, 3, 10, 12]
-    const actual = fewestSteps([goal, buttons])
-    assert.equal(actual, Infinity)
+  it('works on an empty string', () => {
+    const goal = []
+    const button = 0
+    const actual = applyButton(goal, button)
+    assert.deepEqual(actual, [])
+  })
+  it('works on a 1 digit string', () => {
+    const goal = [5]
+    const button = 1
+    const actual = applyButton(goal, button)
+    assert.deepEqual(actual, [4])
+  })
+  it('can go negative', () => {
+    const goal = [0]
+    const button = 1
+    const actual = applyButton(goal, button)
+    assert.deepEqual(actual, [-1])
+  })
+  it('can go negative on one and zero on another', () => {
+    const goal = [0, 1]
+    const button = 3
+    const actual = applyButton(goal, button)
+    assert.deepEqual(actual, [-1, 0])
+  })
+  it('can go negative on two', () => {
+    const goal = [0, 0]
+    const button = 3
+    const actual = applyButton(goal, button)
+    assert.deepEqual(actual, [-1, -1])
+  })
+  it('can go to 0', () => {
+    const goal = [1]
+    const button = 1
+    const actual = applyButton(goal, button)
+    assert.deepEqual(actual, [0])
   })
 })
